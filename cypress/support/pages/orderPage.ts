@@ -1,23 +1,23 @@
 class orderPage {
     elements = {
-        name: () => cy.get('#name'),
-        country: () => cy.get('#country'),
-        city: () => cy.get('#city'),
-        creditCard: () => cy.get('#card'),
-        month: () => cy.get('#month'),
-        year: () => cy.get('#year'),
+        name_input: () => cy.get('#name'),
+        country_input: () => cy.get('#country'),
+        city_input: () => cy.get('#city'),
+        creditCard_input: () => cy.get('#card'),
+        month_input: () => cy.get('#month'),
+        year_input: () => cy.get('#year'),
         purchaseButton: () => cy.contains('button', 'Purchase'),
-        confirmation: () => cy.get('.sweet-alert')
+        success_message: () => cy.get('.sweet-alert')
     }
 
     completeOrderForm() {
         cy.fixture("clientData").then((data) => {
-            this.elements.name().type(data.name);
-            this.elements.country().type(data.country);
-            this.elements.city().type(data.city);
-            this.elements.creditCard().type(data.creditCard);
-            this.elements.month().type(data.month);
-            this.elements.year().type(data.year);
+            this.elements.name_input().type(data.name);
+            this.elements.country_input().type(data.country);
+            this.elements.city_input().type(data.city);
+            this.elements.creditCard_input().type(data.creditCard);
+            this.elements.month_input().type(data.month);
+            this.elements.year_input().type(data.year);
         });
     }
 
@@ -26,7 +26,7 @@ class orderPage {
     }
 
     verifyPurchaseMessage() {
-        this.elements.confirmation().should('contain.text', 'Thank you for your purchase');
+        this.elements.success_message().should('contain.text', 'Thank you for your purchase');
     }
 }
 

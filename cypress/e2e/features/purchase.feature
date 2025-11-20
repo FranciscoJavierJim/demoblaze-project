@@ -2,6 +2,7 @@ Feature: Purchase with log in in demoblaze.com
   Background: 
     Given I am on the Demoblaze website
 
+    @successfulPurchase @critical @smoke
   Scenario: Successful purchase process with valid username and password
     When I go to Log in
     And I enter valid username

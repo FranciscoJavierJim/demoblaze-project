@@ -28,10 +28,8 @@ When("I enter valid password", () => {
 
 When("I click on Log in", () => {
     loginPage.clickLoginButton();
-    cy.wait(1500);
-    cy.get('#logInModal').should('not.be.visible');
+     cy.get('#logInModal').should('not.be.visible');
 });
-
 
 When("I select a product in main page", () => {
     homePage.selectProduct("Samsung galaxy s6");

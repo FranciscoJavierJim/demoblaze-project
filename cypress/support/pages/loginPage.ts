@@ -1,16 +1,16 @@
 class loginPage {
   elements = {
-    username: () => cy.get('#loginusername'),
-    password: () => cy.get('#loginpassword'),
+    username_input: () => cy.get('#loginusername'),
+    password_input: () => cy.get('#loginpassword'),
     loginButton: () => cy.get('#logInModal .btn-primary')
 }
 
 typeUsername(name: string) {
-    this.elements.username().should('be.visible').type(name);
+    this.elements.username_input().should('be.visible').type(name);
 }
 
 typePassword(password: string) {
-    this.elements.password().should('be.visible').type(password);
+    this.elements.password_input().should('be.visible').type(password);
 }
 
 clickLoginButton() {

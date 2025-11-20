@@ -5,7 +5,6 @@ import { createEsbuildPlugin } from "@badeball/cypress-cucumber-preprocessor/esb
 import path from "path";
 
 export default defineConfig({
-  // 1️⃣ Configuración del reporter y sus opciones
   reporter: "cypress-mochawesome-reporter",
   reporterOptions: {
     reportDir: "cypress/reports",
@@ -16,22 +15,16 @@ export default defineConfig({
     saveAllAttempts: false,
   },
 
-  // 2️⃣ Configuración E2E
   e2e: {
     specPattern: "**/*.feature",
-    async setupNodeEvents(
-      on: Cypress.PluginEvents,
-      config: Cypress.PluginConfigOptions
-    ): Promise<Cypress.PluginConfigOptions> {
-      // Integración del preprocesador Cucumber
-      await addCucumberPreprocessorPlugin(on, config, {
-        stepDefinitions: path.join(
-          __dirname,
-          "cypress/support/step_definitions"
-        ),
-      });
+    env: {
+      TAGS: process.env.TAGS,
+    },
 
-      // Preprocesador Esbuild
+    async setupNodeEvents(on, config) {
+      // ⚡ Llamada correcta al preprocesador sin stepDefinitions
+      await addCucumberPreprocessorPlugin(on, config);
+
       on(
         "file:preprocessor",
         createBundler({
@@ -39,7 +32,6 @@ export default defineConfig({
         })
       );
 
-      // Integración del Mochawesome Reporter
       require("cypress-mochawesome-reporter/plugin")(on);
 
       return config;
