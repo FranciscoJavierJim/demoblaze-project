@@ -1,0 +1,36 @@
+name: Cypress BDD Pipeline
+
+on:
+  push:            # Ejecuta automáticamente la pipeline al subir cambios
+    branches: ["main"]
+
+jobs:
+  cypress:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del repo
+        uses: actions/checkout@v3
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Compilar TypeScript (si usas TS en steps o POM)
+        run: npm run build --if-present
+
+      - name: Ejecutar tests Cypress (BDD)
+        run: npx cypress run
+
+      - name: Guardar videos/screenshots (útil para debugging)
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-artifacts
+          path: |
+            cypress/videos
+            cypress/screenshots
