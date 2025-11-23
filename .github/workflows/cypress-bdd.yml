@@ -1,7 +1,7 @@
 name: Cypress BDD Pipeline
 
 on:
-  push:            # Ejecuta automáticamente la pipeline al subir cambios
+  push:
     branches: ["main"]
 
 jobs:
@@ -17,16 +17,24 @@ jobs:
         with:
           node-version: 18
 
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
       - name: Instalar dependencias
         run: npm install
 
-      - name: Compilar TypeScript (si usas TS en steps o POM)
+      - name: Compilar TypeScript (si usas TS)
         run: npm run build --if-present
 
       - name: Ejecutar tests Cypress (BDD)
         run: npx cypress run
 
-      - name: Guardar videos/screenshots (útil para debugging)
+      - name: Guardar videos/screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
