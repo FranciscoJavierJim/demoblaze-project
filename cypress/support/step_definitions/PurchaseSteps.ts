@@ -6,7 +6,7 @@ import cartPage from "../pages/cartPage";
 import orderPage from "../pages/orderPage";
 import 'cypress-mochawesome-reporter/cucumberSupport';
 
-Given("I am on the Demoblaze website", () => {
+Given("the user is on the Demoblaze homepage", () => {
     cy.visit("https://demoblaze.com/index.html");
 });
 
@@ -64,4 +64,37 @@ When("I press Purchase button", () => {
 
 Then('The message "Thank you for your purchase" should appear', () => {
     orderPage.verifyPurchaseMessage();
+});
+
+//
+
+Given('the user is logged in with valid credentials', () => {
+  cy.fixture('demoblazeUser').then((user) => {
+    cy.visit('https://demoblaze.com/index.html');
+    homePage.clickLogin();
+    loginPage.typeUsername(user.username);
+    loginPage.typePassword(user.password);
+    loginPage.clickLoginButton();
+    cy.get('#logInModal').should('not.be.visible');
+  });
+});
+
+Given('a product is added to the cart', () => {
+  homePage.selectProduct('Samsung galaxy s6');
+  productPage.checkProductAndAddToCart();
+  productPage.handlePopUp();
+});
+
+When('the user completes the checkout process', () => {
+  homePage.clickCart();
+  cy.fixture('demoblazeUser').then(() => {
+    cartPage.checkProductInCart('Samsung galaxy s6', '360');
+  });
+  cartPage.clickPlaceOrder();
+  orderPage.completeOrderForm();
+  orderPage.completePurchase();
+});
+
+Then('the purchase is confirmed successfully', () => {
+  orderPage.verifyPurchaseMessage();
 });
