@@ -1,4 +1,4 @@
-# 🛒 Demoblaze Purchase Flow — Test Automation
+# 🛒 Demoblaze Purchase Flow — Test Automation  
 
 Automatización end-to-end del proceso de compra en **Demoblaze**:  
 login → búsqueda de producto → añadir al carrito → finalizar compra con datos de cliente.
@@ -8,7 +8,6 @@ Este proyecto usa **Cypress**, **Cucumber (BDD)** y **Page Object Model (POM)** 
 ---
 
 ## 🚀 Tecnologías
-
 - 🧪 Cypress  
 - 🧩 Cucumber / Gherkin  
 - 📐 Page Object Model (POM)  
@@ -17,22 +16,19 @@ Este proyecto usa **Cypress**, **Cucumber (BDD)** y **Page Object Model (POM)** 
 ---
 
 ## 📁 Estructura del proyecto
-
+```text
 cypress/
-├── e2e/ # Archivos .feature (Cucumber)
-├── pages/ # Page Objects (POM)
-├── steps/ # Step definitions
-└── support/ # Configuración de Cypress
-cypress.config.ts # Configuración principal
-package.json # Dependencias y scripts
+ ├── e2e/          # Archivos .feature (Cucumber)
+ ├── pages/        # Page Objects (POM)
+ ├── steps/        # Step definitions
+ └── support/      # Configuración de Cypress
+cypress.config.ts  # Configuración principal
+package.json       # Dependencias y scripts
 
----
-
-## 📦 Instalación
+📦 Instalación
 
 1️⃣ Clonar el repositorio:
 
-```bash
 git clone https://github.com/FranciscoJavierJim/demoblaze-project.git
 cd demoblaze-project
 
@@ -43,18 +39,20 @@ npm install
 ▶️ Ejecución de pruebas
 
 🛠 Modo interactivo
+
 npx cypress open
 
 🚀 Modo headless
+
 npx cypress run
 
 🧪 Escenarios incluidos
 
 Este proyecto contiene dos formas de describir el mismo flujo de compra:
 
-✔️ Declarativo: describe qué debe ocurrir
+✔️ Declarativo — describe qué debe ocurrir
 
-✔️ Imperativo: describe cómo ocurre paso a paso
+✔️ Imperativo — describe cómo ocurre paso a paso
 
 Ambos validan:
 
